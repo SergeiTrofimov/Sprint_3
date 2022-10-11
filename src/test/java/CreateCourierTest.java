@@ -1,4 +1,6 @@
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import org.example.CreateCourier;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,12 +15,13 @@ public class CreateCourierTest {
     @Test
     public void test (){
         CreateCourier courier = new CreateCourier("Login23","Password43","name22");
-        given()
+       Response response = given()
                 .header("Content-type", "application/json")
                 .and()
                 .body(courier)
                 .when()
-                .post("/api/v1/courier")
-                .then().statusCode(201);
+                .post("/api/v1/courier");
+                //.then().statusCode(201);
+       System.out.println(response.getBody().asString());
     }
 }
