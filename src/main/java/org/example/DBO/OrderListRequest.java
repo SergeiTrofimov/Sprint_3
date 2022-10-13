@@ -1,6 +1,6 @@
-package org.example;
+package org.example.DBO;
 
-public class OrderList {
+public class OrderListRequest {
     private int courierId;
     private String nearestStation;
     private int limit;

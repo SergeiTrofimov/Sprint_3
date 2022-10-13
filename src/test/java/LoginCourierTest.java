@@ -1,7 +1,7 @@
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.example.LoginCourier;
-import org.example.LoginCourierResponse;
+import org.example.DBO.LoginCourierRequest;
+import org.example.DBO.LoginCourierResponse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public class LoginCourierTest {
 
     @Test
     public void test() {
-        LoginCourier login = new LoginCourier("Login23", "Password43");
+        LoginCourierRequest login = new LoginCourierRequest("Login23", "Password43");
         Response response = given()
                 .header("Content-type", "application/json")
                 .and()

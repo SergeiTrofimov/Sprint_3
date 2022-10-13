@@ -1,6 +1,6 @@
-package org.example;
+package org.example.DBO;
 
-public class CreateOrder {
+public class CreateOrderRequest {
     private String firstName;
     private String lastName;
     private String address;

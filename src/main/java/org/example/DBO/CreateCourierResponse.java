@@ -1,9 +1,9 @@
-package org.example;
+package org.example.DBO;
 
-public class LoginCourierResponse {
+public class CreateCourierResponse {
     public String id;
 
-    public LoginCourierResponse(String id) {
+    public CreateCourierResponse(String id) {
         this.id = id;
     }
 

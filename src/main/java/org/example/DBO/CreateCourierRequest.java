@@ -1,12 +1,8 @@
-package org.example;
-
-import io.restassured.RestAssured;
-import org.junit.Before;
-import org.junit.Test;
+package org.example.DBO;
 
 import static io.restassured.RestAssured.given;
 
-public class CreateCourier {
+public class CreateCourierRequest {
 
     // Объявляем поля
     private String login;
@@ -14,13 +10,13 @@ public class CreateCourier {
     private String firsName;
 
     // Конструкторы
-    public CreateCourier(String login, String password, String firsName) {
+    public CreateCourierRequest(String login, String password, String firsName) {
         this.login = login;
         this.password = password;
         this.firsName = firsName;
     }
 
-    public CreateCourier() {
+    public CreateCourierRequest() {
     }
 
     // Сеттеры и геттеры

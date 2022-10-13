@@ -1,18 +1,18 @@
-package org.example;
+package org.example.DBO;
 
-public class LoginCourier {
+public class LoginCourierRequest {
 
     //Переменные полей
     private String login;
     private String password;
 
     // конструкторы
-    public LoginCourier(String login, String password) {
+    public LoginCourierRequest(String login, String password) {
         this.login = login;
         this.password = password;
     }
 
-    public LoginCourier() {
+    public LoginCourierRequest() {
     }
 
     // сеттеры и геттеры
