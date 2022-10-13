@@ -1,26 +1,23 @@
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.example.DBO.CreateCourierRequest;
+import org.example.DBO.CreateCourierResponse;
+import org.example.DBO.LoginCourierResponse;
+import org.example.RESTclient.CourierClient;
+import org.example.Setup;
 import org.junit.Before;
 import org.junit.Test;
 
+import static io.restassured.RestAssured.config;
 import static io.restassured.RestAssured.given;
 
 public class CreateCourierTest {
-    @Before
-    public void setup(){
-        RestAssured.baseURI = "http://qa-scooter.praktikum-services.ru";
-    }
+    CourierClient courierClient = new CourierClient();
     @Test
     public void test (){
-        CreateCourierRequest courier = new CreateCourierRequest("Login23","Password43","name22");
-       Response response = given()
-                .header("Content-type", "application/json")
-                .and()
-                .body(courier)
-                .when()
-                .post("/api/v1/courier");
-                //.then().statusCode(201);
-       System.out.println(response.getBody().asString());
+        Response response = courierClient.createCourierRequest("123","321","1123");
+        String id = response.getBody().as(CreateCourierResponse.class).getId();
+        courierClient.deleteCourier(id);
     }
+
 }

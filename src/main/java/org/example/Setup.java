@@ -1,4 +1,6 @@
-public class Config {
+package org.example;
+
+public class Setup {
     private final static String BASE_URI = "http://qa-scooter.praktikum-services.ru";
     private final static String CREATE_COURIER = "/api/v1/courier";
     private final static String LOGIN_COURIER = "/api/v1/courier/login";

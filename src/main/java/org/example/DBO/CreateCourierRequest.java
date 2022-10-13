@@ -7,13 +7,13 @@ public class CreateCourierRequest {
     // Объявляем поля
     private String login;
     private String password;
-    private String firsName;
+    private String firstName;
 
     // Конструкторы
     public CreateCourierRequest(String login, String password, String firsName) {
         this.login = login;
         this.password = password;
-        this.firsName = firsName;
+        this.firstName = firsName;
     }
 
     public CreateCourierRequest() {
@@ -36,11 +36,11 @@ public class CreateCourierRequest {
         this.password = password;
     }
 
-    public String getFirsName() {
-        return firsName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirsName(String firsName) {
-        this.firsName = firsName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 }
