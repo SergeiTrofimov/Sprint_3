@@ -3,6 +3,7 @@ package org.example.RESTclient;
 import io.restassured.response.Response;
 import org.example.DBO.CreateCourierRequest;
 import org.example.DBO.LoginCourierRequest;
+import org.example.DBO.LoginCourierResponse;
 import org.example.Setup;
 
 import static io.restassured.RestAssured.given;
@@ -12,7 +13,7 @@ public class CourierClient {
 
     // Создать
     public Response createCourierRequest(String login, String password, String firstName) {
-        CreateCourierRequest courier = new CreateCourierRequest("Login23", "Password43", "name22");
+        CreateCourierRequest courier = new CreateCourierRequest(login, password, firstName);
         Response response = given()
                 .header("Content-type", "application/json")
                 .baseUri(setup.getBaseUri())
@@ -24,14 +25,14 @@ public class CourierClient {
 
     // Логин
     public Response loginCourierRequest(String login, String password) {
-        LoginCourierRequest loginZ = new LoginCourierRequest("2212", "2313");
-        Response resposne = given()
+        LoginCourierRequest loginBody = new LoginCourierRequest(login, password);
+        Response response = given()
                 .header("Content-type", "application/json")
                 .baseUri(setup.getBaseUri())
-                .body(loginZ)
+                .body(loginBody)
                 .when()
                 .post(setup.getLoginCourier());
-        return resposne;
+        return response;
     }
 
     // Удалить
@@ -41,7 +42,14 @@ public class CourierClient {
                 .baseUri(setup.getBaseUri())
                 .when()
                 .delete(setup.getDeleteCourier() + id);
+
+
     }
 
-
+    // Очистка данных теста
+    public void clearTestData(String login, String password) {
+        Response response = loginCourierRequest(login, password);
+        String id = response.getBody().as(LoginCourierResponse.class).getId();
+        deleteCourier(id);
+    }
 }

@@ -1,5 +1,9 @@
 package org.example.RESTclient;
 
-public class OrderClient {
+import org.example.Setup;
 
+public class OrderClient {
+    Setup setup = new Setup();
+    // Создать заказ
+    // Получить список заказов
 }

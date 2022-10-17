@@ -1,23 +1,80 @@
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.example.DBO.CreateCourierRequest;
-import org.example.DBO.CreateCourierResponse;
-import org.example.DBO.LoginCourierResponse;
+import org.example.BodyGenerator.СourierGenerator;
 import org.example.RESTclient.CourierClient;
-import org.example.Setup;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-import static io.restassured.RestAssured.config;
-import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+
+;
+
 
 public class CreateCourierTest {
     CourierClient courierClient = new CourierClient();
+    СourierGenerator generator = new СourierGenerator();
+
+    /**
+     * 1.курьера можно создать,
+     * 2.запрос возвращает правильный код ответа,
+     * 3.успешный запрос возвращает ok: true;
+     */
     @Test
-    public void test (){
-        Response response = courierClient.createCourierRequest("123","321","1123");
-        String id = response.getBody().as(CreateCourierResponse.class).getId();
-        courierClient.deleteCourier(id);
+    public void canCreateCourier() {
+
+        // Вызываем создание клиента
+        String[] body = generator.bodyGenerator();
+        Response response = courierClient.createCourierRequest(body[0], body[1], body[2]);
+        response.then().statusCode(201);
+        response.then().assertThat().body("ok", equalTo(true));
+        // Убираем за собой
+        courierClient.clearTestData(body[0], body[1]);
     }
 
+    /**
+     * 1.нельзя создать двух одинаковых курьеров;
+     */
+    @Test
+    public void cantCreateDouble() {
+
+
+        Response response = null;
+        String[] body = generator.bodyGenerator();
+        for (int i = 0; i < 2; i++) {
+            response = courierClient.createCourierRequest(body[0], body[1], body[2]);
+        }
+        response.then().statusCode(409);
+        // Убираем за собой
+        courierClient.clearTestData("svtDouble1", "svtDouble2");
+    }
+
+    /**
+     * если создать пользователя с логином,который уже есть,возвращается ошибка
+     */
+    @Test
+    public void cantReuseLogin() {
+        String[] body = generator.bodyGenerator();
+        Response response = null;
+        for (int i = 0; i < 2; i++) {
+            response = courierClient.createCourierRequest(body[0], "password" + i, "testDouble" + i);
+        }
+        response.then().statusCode(409);
+        response.then().assertThat().body("message", equalTo("Этот логин уже используется. Попробуйте другой."));
+        // Убираем за собой
+        courierClient.clearTestData(body[0], "password0");
+    }
+
+    /**
+     * 1.чтобы создать курьера,нужно передать в ручку все обязательные поля
+     * 2.если одного из полей нет,запрос возвращает ошибку;
+     */
+    @ParameterizedTest
+    @CsvSource({"svtLogin1, ,svtName1",
+            " ,svtPassword1,svtName1"})
+
+    public void checkMandatoryParameters(String login, String password, String firstName) {
+        Response response = courierClient.createCourierRequest(login, password, firstName);
+        response.then().statusCode(400);
+        response.then().assertThat().body("message", equalTo("Недостаточно данных для создания учетной записи"));
+    }
 }
