@@ -19,7 +19,7 @@ public class OrderClient {
                                        String deliveryDate,
                                        String comment,
                                        String[] color) {
-        CreateOrderRequest order = new CreateOrderRequest(String firstName,
+        CreateOrderRequest order = new CreateOrderRequest(firstName,
                 lastName,
                 address,
                 metroStation,
