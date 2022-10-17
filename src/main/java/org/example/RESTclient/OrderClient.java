@@ -36,5 +36,14 @@ public class OrderClient {
                 .post(setup.getCreateOrder());
         return response;
     }
+
     // Получить список заказов
+    public Response createOrderRequest(String postfix) {
+        Response response = given()
+                .header("Content-type", "application/json")
+                .baseUri(setup.getBaseUri())
+                .when()
+                .get(setup.getCreateOrder()+postfix);
+        return response;
+    }
 }
