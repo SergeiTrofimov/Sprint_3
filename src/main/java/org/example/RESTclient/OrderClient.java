@@ -10,35 +10,19 @@ public class OrderClient {
     Setup setup = new Setup();
 
     // Создать заказ
-    public Response createOrderRequest(String firstName,
-                                       String lastName,
-                                       String address,
-                                       String metroStation,
-                                       String phone,
-                                       int rentTime,
-                                       String deliveryDate,
-                                       String comment,
-                                       String[] color) {
-        CreateOrderRequest order = new CreateOrderRequest(firstName,
-                lastName,
-                address,
-                metroStation,
-                phone,
-                rentTime,
-                deliveryDate,
-                comment,
-                color);
+    public Response createOrderRequest(String jsonBody) {
+       // CreateOrderRequest order = new CreateOrderRequest(requestBody);
         Response response = given()
                 .header("Content-type", "application/json")
                 .baseUri(setup.getBaseUri())
-                .body(order)
+                .body(jsonBody)
                 .when()
                 .post(setup.getCreateOrder());
         return response;
     }
 
     // Получить список заказов
-    public Response createOrderRequest(String postfix) {
+    public Response getOrderRequest(String postfix) {
         Response response = given()
                 .header("Content-type", "application/json")
                 .baseUri(setup.getBaseUri())

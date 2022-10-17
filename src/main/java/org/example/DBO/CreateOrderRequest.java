@@ -6,13 +6,13 @@ public class CreateOrderRequest {
     private String address;
     private String metroStation;
     private String phone;
-    private int rentTime;
+    private String rentTime;
     private String deliveryDate;
     private String comment;
     private String[] color;
 
     //
-    public CreateOrderRequest(String firstName, String lastName, String address, String metroStation, String phone, int rentTime, String deliveryDate, String comment, String[] color) {
+    public CreateOrderRequest(String firstName, String lastName, String address, String metroStation, String phone, String rentTime, String deliveryDate, String comment, String[] color) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -23,6 +23,7 @@ public class CreateOrderRequest {
         this.comment = comment;
         this.color = color;
     }
+    public CreateOrderRequest(){}
 
     public String getFirstName() {
         return firstName;
@@ -66,11 +67,11 @@ public class CreateOrderRequest {
         this.phone = phone;
     }
 
-    public int getRentTime() {
+    public String getRentTime() {
         return rentTime;
     }
 
-    public void setRentTime(int rentTime) {
+    public void setRentTime(String rentTime) {
         this.rentTime = rentTime;
     }
 
