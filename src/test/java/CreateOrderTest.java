@@ -2,24 +2,21 @@ import com.google.gson.Gson;
 import io.restassured.response.Response;
 import org.example.BodyGenerator.OrderGenerator;
 import org.example.BodyGenerator.СourierGenerator;
-import org.example.DBO.CreateOrderResponse;
 import org.example.DBO.LoginCourierResponse;
 import org.example.RESTclient.CourierClient;
 import org.example.RESTclient.OrderClient;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
+import java.util.stream.Stream;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-@RunWith(Parameterized.class)
 public class CreateOrderTest {
 
 
@@ -28,24 +25,17 @@ public class CreateOrderTest {
     СourierGenerator сourierGenerator = new СourierGenerator();
     OrderGenerator orderGenerator = new OrderGenerator();
     private String id;
-    String[] colorArray;
 
-    public CreateOrderTest(String [] colorArray) {
-        this.colorArray = colorArray;
+    static Stream<Arguments> stringArrayProvider() {
+        return Stream.of(
+                Arguments.of((Object) new String[]{"Black", "Grey"}),
+                Arguments.of((Object) new String[]{"Grey", "Black"}),
+                Arguments.of((Object) new String[]{"Black"}),
+                Arguments.of((Object) new String[]{"Grey"}),
+                Arguments.of((Object) new String[]{})
+        );
     }
 
-
-    @Parameterized.Parameters(name = "Проверка цвета -{0}")
-    public static String[][][] getSumData() {
-        return new String[][][]{
-
-                {{"Black", "Grey"}},
-                {{"Grey", "Black"}},
-                {{"", "Grey"}},
-                {{"Black", ""}},
-                {{}}
-        };
-    }
 
     @Before
     public void beforeOrder() {
@@ -79,8 +69,9 @@ public class CreateOrderTest {
      * 2.можно указать оба цвета
      * 3.можно совсем не указывать цвет
      */
-    @Test
-    public void colorTest() {
+    @ParameterizedTest
+    @MethodSource("stringArrayProvider")
+    public void colorTest(String[] colorArray) {
         HashMap<String, Object> orderBody = orderGenerator.bodyGenerator();
         orderBody.remove("color");
         orderBody.put("color", colorArray);
@@ -88,7 +79,6 @@ public class CreateOrderTest {
         String jsonBody = gson.toJson(orderBody);
         Response response = orderClient.createOrderRequest(jsonBody);
         response.then().statusCode(201);
-        int track = response.getBody().as(CreateOrderResponse.class).getTrack();
-        System.out.println(track);
+        response.then().assertThat().body(notNullValue());
     }
 }
