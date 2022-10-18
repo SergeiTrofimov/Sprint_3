@@ -36,21 +36,6 @@ public class CreateOrderTest {
         );
     }
 
-
-    @Before
-    public void beforeOrder() {
-        String[] body = сourierGenerator.bodyGenerator();
-        courierClient.createCourierRequest(body[0], body[1], body[2]);
-        //Логинимся созданной парой
-        Response response = courierClient.loginCourierRequest(body[0], body[1]);
-        id = response.getBody().as(LoginCourierResponse.class).getId();
-    }
-
-    @After
-    public void afterOrder() {
-        courierClient.deleteCourier(id);
-    }
-
     /**
      * тело ответа содержит track
      */
