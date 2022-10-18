@@ -9,23 +9,43 @@ import org.example.RESTclient.OrderClient;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+
+@RunWith(Parameterized.class)
 public class CreateOrderTest {
 
-    /**
-     * можно указать один из цветов — BLACK или GREY;
-     * можно указать оба цвета;
-     * можно совсем не указывать цвет;
-     * тело ответа содержит track.
-     */
+
     CourierClient courierClient = new CourierClient();
     OrderClient orderClient = new OrderClient();
     СourierGenerator сourierGenerator = new СourierGenerator();
     OrderGenerator orderGenerator = new OrderGenerator();
     private String id;
+    String[] colorArray;
+
+    public CreateOrderTest(String [] colorArray) {
+        this.colorArray = colorArray;
+    }
+
+
+    @Parameterized.Parameters(name = "Проверка цвета -{0}")
+    public static String[][][] getSumData() {
+        return new String[][][]{
+
+                {{"Black", "Grey"}},
+                {{"Grey", "Black"}},
+                {{"", "Grey"}},
+                {{"Black", ""}},
+                {{}}
+        };
+    }
 
     @Before
     public void beforeOrder() {
@@ -41,25 +61,34 @@ public class CreateOrderTest {
         courierClient.deleteCourier(id);
     }
 
-    @Parameterized.Parameters(name = "Проверка цвета -{0}")
-    public static Object[][] getSumData() {
-        return new Object[][]{
-                {"Black", "Grey"},
-                {"", "Grey"},
-                {"Black", ""},
-                {"", ""},
-                {}
-        };
-    }
-
+    /**
+     * тело ответа содержит track
+     */
     @Test
-    public void colorTest() {
+    public void responseTest() {
         HashMap<String, Object> orderBody = orderGenerator.bodyGenerator();
         Gson gson = new Gson();
         String jsonBody = gson.toJson(orderBody);
-     Response response = orderClient.createOrderRequest(jsonBody);
-     response.then().statusCode(201);
-      int track = response.getBody().as(CreateOrderResponse.class).getTrack();
-      System.out.println(track);
+        Response response = orderClient.createOrderRequest(jsonBody);
+        response.then().statusCode(201);
+        response.then().assertThat().body(notNullValue());
+    }
+
+    /**
+     * 1.можно указать один из цветов — BLACK или GREY
+     * 2.можно указать оба цвета
+     * 3.можно совсем не указывать цвет
+     */
+    @Test
+    public void colorTest() {
+        HashMap<String, Object> orderBody = orderGenerator.bodyGenerator();
+        orderBody.remove("color");
+        orderBody.put("color", colorArray);
+        Gson gson = new Gson();
+        String jsonBody = gson.toJson(orderBody);
+        Response response = orderClient.createOrderRequest(jsonBody);
+        response.then().statusCode(201);
+        int track = response.getBody().as(CreateOrderResponse.class).getTrack();
+        System.out.println(track);
     }
 }
