@@ -9,6 +9,7 @@ import org.example.RESTclient.OrderClient;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runners.Parameterized;
 
 import java.util.HashMap;
 
@@ -40,12 +41,23 @@ public class CreateOrderTest {
         courierClient.deleteCourier(id);
     }
 
+    @Parameterized.Parameters(name = "Проверка цвета -{0}")
+    public static Object[][] getSumData() {
+        return new Object[][]{
+                {"Black", "Grey"},
+                {"", "Grey"},
+                {"Black", ""},
+                {"", ""},
+                {}
+        };
+    }
+
     @Test
     public void colorTest() {
         HashMap<String, Object> orderBody = orderGenerator.bodyGenerator();
         Gson gson = new Gson();
-        String json = gson.toJson(orderBody);
-     Response response = orderClient.createOrderRequest(json);
+        String jsonBody = gson.toJson(orderBody);
+     Response response = orderClient.createOrderRequest(jsonBody);
      response.then().statusCode(201);
       int track = response.getBody().as(CreateOrderResponse.class).getTrack();
       System.out.println(track);

@@ -1,6 +1,7 @@
 import io.restassured.response.Response;
 import org.example.BodyGenerator.СourierGenerator;
 import org.example.RESTclient.CourierClient;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -11,6 +12,19 @@ import static org.hamcrest.core.IsNot.not;
 public class LoginCourierTest {
     CourierClient courierClient = new CourierClient();
     СourierGenerator generator = new СourierGenerator();
+    String[] body;
+    @Before
+    public void beforeLogin(){
+        // Создаем курьера для тестов
+        body = generator.bodyGenerator();
+        courierClient.createCourierRequest(body[0], body[1], body[2]);
+    }
+    public void afterLogin(){
+        // Убираем за собой
+        courierClient.clearTestData(body[0], body[1]);
+    }
+
+
 
     /**
      * 1.курьер может авторизоваться;
@@ -18,9 +32,6 @@ public class LoginCourierTest {
      */
     @Test
     public void canLoginCourier() {
-        // Вызываем создание клиента
-        String[] body = generator.bodyGenerator();
-        courierClient.createCourierRequest(body[0], body[1], body[2]);
         //Логинимся созданной парой
         Response response = courierClient.loginCourierRequest(body[0], body[1]);
         response.then().statusCode(200);
@@ -33,15 +44,11 @@ public class LoginCourierTest {
      */
     @Test
     public void wrongPasswordCourier() {
-        // Вызываем создание клиента
-        String[] body = generator.bodyGenerator();
-        courierClient.createCourierRequest(body[0], body[1], body[2]);
         //Логинимся созданной парой
         Response response = courierClient.loginCourierRequest(body[0], body[0]);
         response.then().statusCode(404);
         response.then().assertThat().body("message", equalTo("Учетная запись не найдена"));
-        // Убираем за собой
-        courierClient.clearTestData(body[0], body[1]);
+
     }
 
     /**
@@ -49,15 +56,10 @@ public class LoginCourierTest {
      */
     @Test
     public void wrongLoginCourier() {
-        // Вызываем создание клиента
-        String[] body = generator.bodyGenerator();
-        courierClient.createCourierRequest(body[1], body[1], body[2]);
         //Логинимся созданной парой
-        Response response = courierClient.loginCourierRequest(body[0], body[1]);
+        Response response = courierClient.loginCourierRequest(body[2], body[1]);
         response.then().statusCode(404);
         response.then().assertThat().body("message", equalTo("Учетная запись не найдена"));
-        // Убираем за собой
-        courierClient.clearTestData(body[0], body[1]);
     }
 
     /**
@@ -65,15 +67,10 @@ public class LoginCourierTest {
      */
     @Test
     public void idBodyCheck() {
-        // Вызываем создание клиента
-        String[] body = generator.bodyGenerator();
-        courierClient.createCourierRequest(body[0], body[1], body[2]);
         //Логинимся созданной парой
         Response response = courierClient.loginCourierRequest(body[0], body[1]);
         response.then().statusCode(200);
         response.then().assertThat().body("id", not(equalTo(null)));
-        // Убираем за собой
-        courierClient.clearTestData(body[0], body[1]);
     }
 
     /**
