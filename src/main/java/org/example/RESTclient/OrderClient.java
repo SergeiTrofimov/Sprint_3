@@ -20,6 +20,8 @@ public class OrderClient {
                 .post(setup.getCreateOrder());
         return response;
     }
+    //Назначить заказ курьеру
+
 
     // Получить список заказов
     public Response getOrderRequest(String postfix) {

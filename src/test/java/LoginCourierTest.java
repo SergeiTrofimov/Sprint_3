@@ -12,7 +12,7 @@ import static org.hamcrest.core.IsNot.not;
 public class LoginCourierTest {
     CourierClient courierClient = new CourierClient();
     СourierGenerator generator = new СourierGenerator();
-    String[] body;
+   private String[] body;
     @Before
     public void beforeLogin(){
         // Создаем курьера для тестов
