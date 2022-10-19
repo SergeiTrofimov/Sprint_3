@@ -5,6 +5,7 @@ import org.example.BodyGenerator.СourierGenerator;
 import org.example.RESTclient.CourierClient;
 import org.example.RESTclient.OrderClient;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -38,6 +39,7 @@ public class CreateOrderTest {
      * тело ответа содержит track
      */
     @Test
+    @DisplayName("Тело ответа содержит track")
     public void responseTest() {
         HashMap<String, Object> orderBody = orderGenerator.bodyGenerator();
         Gson gson = new Gson();

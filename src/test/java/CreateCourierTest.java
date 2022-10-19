@@ -2,6 +2,7 @@ import io.restassured.response.Response;
 import org.example.BodyGenerator.СourierGenerator;
 import org.example.RESTclient.CourierClient;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -20,7 +21,8 @@ public class CreateCourierTest {
      * 3.успешный запрос возвращает ok: true;
      */
     @Test
-    public void canCreateCourier() {
+    @DisplayName("Проверка создания курьера.Проверка кода и тела")
+    public void canCreateCourierTest() {
 
         // Вызываем создание клиента
         String[] body = generator.bodyGenerator();
@@ -35,9 +37,8 @@ public class CreateCourierTest {
      * 1.нельзя создать двух одинаковых курьеров;
      */
     @Test
-    public void cantCreateDouble() {
-
-
+    @DisplayName("Нельзя создать двух одинковых курьеров")
+    public void cantCreateDoubleTest() {
         Response response = null;
         String[] body = generator.bodyGenerator();
         for (int i = 0; i < 2; i++) {
@@ -52,7 +53,8 @@ public class CreateCourierTest {
      * если создать пользователя с логином,который уже есть,возвращается ошибка
      */
     @Test
-    public void cantReuseLogin() {
+    @DisplayName("Если создать пользователя с логином,который уже есть,возвращается ошибка")
+    public void cantReuseLoginTest() {
         String[] body = generator.bodyGenerator();
         Response response = null;
         for (int i = 0; i < 2; i++) {
@@ -72,7 +74,7 @@ public class CreateCourierTest {
     @CsvSource({"svtLogin1, ,svtName1",
             " ,svtPassword1,svtName1"})
 
-    public void checkMandatoryParameters(String login, String password, String firstName) {
+    public void checkMandatoryParametersTest(String login, String password, String firstName) {
         Response response = courierClient.createCourierRequest(login, password, firstName);
         response.then().statusCode(400);
         response.then().assertThat().body("message", equalTo("Недостаточно данных для создания учетной записи"));

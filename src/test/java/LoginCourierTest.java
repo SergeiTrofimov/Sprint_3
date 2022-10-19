@@ -3,6 +3,7 @@ import org.example.BodyGenerator.СourierGenerator;
 import org.example.RESTclient.CourierClient;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -12,26 +13,27 @@ import static org.hamcrest.core.IsNot.not;
 public class LoginCourierTest {
     CourierClient courierClient = new CourierClient();
     СourierGenerator generator = new СourierGenerator();
-   private String[] body;
+    private String[] body;
+
     @Before
-    public void beforeLogin(){
+    public void beforeLogin() {
         // Создаем курьера для тестов
         body = generator.bodyGenerator();
         courierClient.createCourierRequest(body[0], body[1], body[2]);
     }
-    public void afterLogin(){
+
+    public void afterLogin() {
         // Убираем за собой
         courierClient.clearTestData(body[0], body[1]);
     }
-
-
 
     /**
      * 1.курьер может авторизоваться;
      * 2.для авторизации нужно передать все обязательные поля;
      */
     @Test
-    public void canLoginCourier() {
+    @DisplayName("Курьер может авторизоваться, введя обязательные поля")
+    public void canLoginCourierTest() {
         //Логинимся созданной парой
         Response response = courierClient.loginCourierRequest(body[0], body[1]);
         response.then().statusCode(200);
@@ -43,7 +45,8 @@ public class LoginCourierTest {
      * система вернёт ошибку, если неправильно указать пароль
      */
     @Test
-    public void wrongPasswordCourier() {
+    @DisplayName("Ошибка при неверном пароле")
+    public void wrongPasswordCourierTest() {
         //Логинимся созданной парой
         Response response = courierClient.loginCourierRequest(body[0], body[0]);
         response.then().statusCode(404);
@@ -55,7 +58,8 @@ public class LoginCourierTest {
      * система вернёт ошибку, если неправильно указать логин
      */
     @Test
-    public void wrongLoginCourier() {
+    @DisplayName("Ошибка при неверном логине")
+    public void wrongLoginCourierTest() {
         //Логинимся созданной парой
         Response response = courierClient.loginCourierRequest(body[2], body[1]);
         response.then().statusCode(404);
@@ -66,7 +70,8 @@ public class LoginCourierTest {
      * успешный запрос возвращает id.
      */
     @Test
-    public void idBodyCheck() {
+    @DisplayName("Успешный запрос возвращает id.")
+    public void idBodyCheckTest() {
         //Логинимся созданной парой
         Response response = courierClient.loginCourierRequest(body[0], body[1]);
         response.then().statusCode(200);
@@ -76,7 +81,9 @@ public class LoginCourierTest {
     /**
      * если авторизоваться под несуществующим пользователем, запрос возвращает ошибку
      */
-    public void userIsNotCreated() {
+    @Test
+    @DisplayName("Если авторизоваться под несуществующим пользователем, запрос возвращает ошибку")
+    public void userIsNotCreatedTest() {
         String[] body = generator.bodyGenerator();
         Response response = courierClient.loginCourierRequest(body[0], body[1]);
         response.then().statusCode(404);
@@ -90,7 +97,7 @@ public class LoginCourierTest {
     @CsvSource({"Login1, ",
             ",svtPassword1"})
 
-    public void checkMandatoryParameters(String login, String password) {
+    public void checkMandatoryParametersTest(String login, String password) {
         Response response = courierClient.loginCourierRequest(login, password);
         response.then().statusCode(400);
         response.then().assertThat().body("message", equalTo("Недостаточно данных для входа"));

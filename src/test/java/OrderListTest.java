@@ -11,6 +11,7 @@ import org.example.RESTclient.OrderClient;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,9 +26,6 @@ public class OrderListTest {
     Gson gson = new Gson();
     private String courierId;
 
-    /**
-     * если авторизоваться под несуществующим пользователем, запрос возвращает ошибку
-     */
     @Before
     public void beforeOrder() {
         // Создаем курьера для теста
@@ -45,7 +43,8 @@ public class OrderListTest {
     }
 
     @Test
-    public void orderListIsNotEmpty() {
+    @DisplayName("Тело ответа не пустое, если у курьера есть заказы")
+    public void orderListIsNotEmptyTest() {
         HashMap<String, Object> orderBody = orderGenerator.bodyGenerator();
         String jsonBody = gson.toJson(orderBody);
         Response orderResponse = orderClient.createOrderRequest(jsonBody);
