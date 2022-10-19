@@ -1,15 +1,13 @@
 import io.restassured.response.Response;
-import org.example.RESTclient.CourierClient;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(Parameterized.class)
-public class LoginCourierParametrizesTests extends LoginCourierTest {
+public class LoginCourierParametrizedTest extends LoginCourierTest {
     /**
      * если какого-то поля нет, запрос возвращает ошибку
      */
@@ -17,16 +15,16 @@ public class LoginCourierParametrizesTests extends LoginCourierTest {
     private final String login;
     private final String password;
 
-    public LoginCourierParametrizesTests(String login, String password) {
+    public LoginCourierParametrizedTest(String login, String password) {
         this.login = login;
         this.password = password;
     }
 
     @Parameterized.Parameters(name = "Логин:{0}/Пароль:{1}") // добавили аннотацию
     public static Object[][] getSumData() {
-        return new Object[][] {
-                {"Login1",""},
-                {"","Password1"}
+        return new Object[][]{
+                {"Login1", ""},
+                {"", "Password1"}
         };
     }
 
