@@ -1,6 +1,7 @@
 package org.example.DBO;
 
 public class CreateOrderRequest {
+    // Переменные
     private String firstName;
     private String lastName;
     private String address;
@@ -11,7 +12,7 @@ public class CreateOrderRequest {
     private String comment;
     private String[] color;
 
-    //
+    //Конструктор класса
     public CreateOrderRequest(String firstName, String lastName, String address, String metroStation, String phone, String rentTime, String deliveryDate, String comment, String[] color) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,13 +24,16 @@ public class CreateOrderRequest {
         this.comment = comment;
         this.color = color;
     }
-    public CreateOrderRequest(){}
 
+    // Пустой конструктор для Gson
+    public CreateOrderRequest() {
+    }
+
+    // Геттеры и Сеттеры
     public String getFirstName() {
         return firstName;
     }
 
-    //
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

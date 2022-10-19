@@ -1,15 +1,13 @@
 package org.example.DBO;
 
-import static io.restassured.RestAssured.given;
-
 public class CreateCourierRequest {
 
-    // Объявляем поля
+    // Переменные
     private String login;
     private String password;
     private String firstName;
 
-    // Конструкторы
+    // Конструктор класса
     public CreateCourierRequest(String login, String password, String firsName) {
         this.login = login;
         this.password = password;

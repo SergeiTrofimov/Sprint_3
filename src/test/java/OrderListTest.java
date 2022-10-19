@@ -30,14 +30,16 @@ public class OrderListTest {
      */
     @Before
     public void beforeOrder() {
+        // Создаем курьера для теста
         String[] body = сourierGenerator.bodyGenerator();
         courierClient.createCourierRequest(body[0], body[1], body[2]);
-        //Логинимся созданной парой
+        //Логинимся созданной парой и получаем id курьера
         Response response = courierClient.loginCourierRequest(body[0], body[1]);
         courierId = response.getBody().as(LoginCourierResponse.class).getId();
     }
 
     @After
+    // Убираем за собой
     public void afterOrder() {
         courierClient.deleteCourier(courierId);
     }
@@ -49,13 +51,10 @@ public class OrderListTest {
         Response orderResponse = orderClient.createOrderRequest(jsonBody);
         orderResponse.then().statusCode(201);
         int orderTrack = orderResponse.getBody().as(CreateOrderResponse.class).getTrack();
-        System.out.println(orderTrack);
         // узнаем id заказа
         Response orderIdResponse = orderClient.getOrderIdByTrackRequest(orderTrack);
         orderIdResponse.then().statusCode(200);
         int orderId = orderIdResponse.getBody().as(GetOrderByTrack.class).getOrder().getId();
-
-        System.out.println(orderId);
         // привязываем к курьеру
         Response putOrderResponse = orderClient.putOrderToCourier(orderId, courierId);
         putOrderResponse.then().statusCode(200);

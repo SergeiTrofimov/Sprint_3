@@ -1,11 +1,12 @@
 package org.example.DBO;
 
+//Переменные
 public class PageInfo {
     private int page;
     private int total;
     private int limit;
 
-    //
+    //Конструктор класса
     public PageInfo(int page, int total, int limit) {
         this.page = page;
         this.total = total;
@@ -21,6 +22,7 @@ public class PageInfo {
         this.page = page;
     }
 
+    //Геттеры и сеттеры
     public int getTotal() {
         return total;
     }

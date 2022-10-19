@@ -1,12 +1,15 @@
 package org.example.DBO;
 
 public class LoginCourierResponse {
+    //Переменные
     public String id;
 
+    //Конструктор класса
     public LoginCourierResponse(String id) {
         this.id = id;
     }
 
+    //Сеттеры и геттеры
     public String getId() {
         return id;
     }

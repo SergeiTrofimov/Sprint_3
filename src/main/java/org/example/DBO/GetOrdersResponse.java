@@ -3,18 +3,19 @@ package org.example.DBO;
 import java.util.ArrayList;
 
 public class GetOrdersResponse {
+    // Перменные
     private ArrayList<Order> orders;
     private PageInfo pageInfo;
     private ArrayList<AvailableStation> availableStations;
 
-    //
+    // Конструктор класса
     public GetOrdersResponse(ArrayList<Order> orders, PageInfo pageInfo, ArrayList<AvailableStation> availableStations) {
         this.orders = orders;
         this.pageInfo = pageInfo;
         this.availableStations = availableStations;
     }
 
-    //
+    //Геттеры и сеттеры
     public ArrayList<Order> getOrders() {
         return orders;
     }

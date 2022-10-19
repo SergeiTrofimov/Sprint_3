@@ -2,11 +2,8 @@ import com.google.gson.Gson;
 import io.restassured.response.Response;
 import org.example.BodyGenerator.OrderGenerator;
 import org.example.BodyGenerator.СourierGenerator;
-import org.example.DBO.LoginCourierResponse;
 import org.example.RESTclient.CourierClient;
 import org.example.RESTclient.OrderClient;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -26,6 +23,7 @@ public class CreateOrderTest {
     OrderGenerator orderGenerator = new OrderGenerator();
     private String id;
 
+    //Хранилище параметров для параметризации
     static Stream<Arguments> stringArrayProvider() {
         return Stream.of(
                 Arguments.of((Object) new String[]{"Black", "Grey"}),

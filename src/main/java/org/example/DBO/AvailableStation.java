@@ -1,17 +1,18 @@
 package org.example.DBO;
 
 public class AvailableStation {
+    // Переменные
     private String name;
     private String number;
     private String color;
 
-    //
+    // Конструктор класса
     public AvailableStation(String name, String number, String color) {
         this.name = name;
         this.number = number;
         this.color = color;
     }
-//
+    //Геттеры и сеттеры
 
 
     public String getName() {

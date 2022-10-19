@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 public class CourierClient {
     Setup setup = new Setup();
 
-    // Создать
+    // Создать курьера
     public Response createCourierRequest(String login, String password, String firstName) {
         CreateCourierRequest courier = new CreateCourierRequest(login, password, firstName);
         Response response = given()
@@ -23,7 +23,7 @@ public class CourierClient {
         return response;
     }
 
-    // Логин
+    // Логин курьера
     public Response loginCourierRequest(String login, String password) {
         LoginCourierRequest loginBody = new LoginCourierRequest(login, password);
         Response response = given()
@@ -35,7 +35,7 @@ public class CourierClient {
         return response;
     }
 
-    // Удалить
+    // Удалить курьера
     public void deleteCourier(String id) {
         given()
                 .header("Content-type", "application/json")

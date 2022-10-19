@@ -1,9 +1,11 @@
 package org.example.DBO;
 
 public class CreateCourierErrorResponse {
+    //Переменные
     public String errorText;
 
-    public CreateCourierErrorResponse (String id) {
+    //Геттеры и сеттеры
+    public CreateCourierErrorResponse(String id) {
         this.errorText = id;
     }
 
@@ -11,6 +13,7 @@ public class CreateCourierErrorResponse {
         return errorText;
     }
 
+    //Конструктор класса
     public void setId(String id) {
         this.errorText = id;
     }

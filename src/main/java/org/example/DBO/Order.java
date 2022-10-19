@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Order {
+    //Переменные
     private int id;
     private String firstName;
     private String lastName;
@@ -17,7 +18,33 @@ public class Order {
     private String comment;
     private boolean cancelled;
     private boolean finished;
+    private boolean inDelivery;
+    private Date createdAt;
+    private Date updatedAt;
+    private int status;
 
+    //Конструктор класса
+    public Order(int id, String firstName, String lastName, String address, String metroStation, String phone, int rentTime, Date deliveryDate, int track, ArrayList<String> color, String comment, boolean cancelled, boolean finished, boolean inDelivery, Date createdAt, Date updatedAt, int status) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.metroStation = metroStation;
+        this.phone = phone;
+        this.rentTime = rentTime;
+        this.deliveryDate = deliveryDate;
+        this.track = track;
+        this.color = color;
+        this.comment = comment;
+        this.cancelled = cancelled;
+        this.finished = finished;
+        this.inDelivery = inDelivery;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.status = status;
+    }
+
+    // Геттеры и сеттеры
     public int getId() {
         return id;
     }
@@ -150,32 +177,8 @@ public class Order {
         return status;
     }
 
+
     public void setStatus(int status) {
-        this.status = status;
-    }
-
-    private boolean inDelivery;
-    private Date createdAt;
-    private Date updatedAt;
-    private int status;
-
-    public Order(int id, String firstName, String lastName, String address, String metroStation, String phone, int rentTime, Date deliveryDate, int track, ArrayList<String> color, String comment, boolean cancelled, boolean finished, boolean inDelivery, Date createdAt, Date updatedAt, int status) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.metroStation = metroStation;
-        this.phone = phone;
-        this.rentTime = rentTime;
-        this.deliveryDate = deliveryDate;
-        this.track = track;
-        this.color = color;
-        this.comment = comment;
-        this.cancelled = cancelled;
-        this.finished = finished;
-        this.inDelivery = inDelivery;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.status = status;
     }
 }
