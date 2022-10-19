@@ -1,7 +1,4 @@
 import io.restassured.response.Response;
-import org.example.BodyGenerator.CourierGenerator;
-
-import org.example.RESTclient.CourierClient;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,10 +9,7 @@ import static org.hamcrest.Matchers.equalTo;
 ;
 
 
-public class CreateCourierTest {
-    CourierClient courierClient = new CourierClient();
-    CourierGenerator generator = new CourierGenerator();
-
+public class CreateCourierTest extends CourierTests {
     /**
      * 1.курьера можно создать,
      * 2.запрос возвращает правильный код ответа,

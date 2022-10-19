@@ -18,30 +18,7 @@ import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
-public class OrderListTest {
-    CourierClient courierClient = new CourierClient();
-    OrderClient orderClient = new OrderClient();
-    CourierGenerator courierGenerator = new CourierGenerator();
-    OrderGenerator orderGenerator = new OrderGenerator();
-    Gson gson = new Gson();
-    private String courierId;
-
-    @Before
-    public void beforeOrder() {
-        // Создаем курьера для теста
-        String[] body = courierGenerator.bodyGenerator();
-        courierClient.createCourierRequest(body[0], body[1], body[2]);
-        //Логинимся созданной парой и получаем id курьера
-        Response response = courierClient.loginCourierRequest(body[0], body[1]);
-        courierId = response.getBody().as(LoginCourierResponse.class).getId();
-    }
-
-    @After
-    // Убираем за собой
-    public void afterOrder() {
-        courierClient.deleteCourier(courierId);
-    }
-
+public class OrderListTest extends OrderTest{
     @Test
     @DisplayName("Тело ответа не пустое, если у курьера есть заказы")
     public void orderListIsNotEmptyTest() {

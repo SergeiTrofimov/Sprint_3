@@ -9,7 +9,7 @@ import java.util.HashMap;
 import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(Parameterized.class)
-public class CreateOrderParametrizedTest extends CreateOrderTest {
+public class CreateOrderParametrizedTest extends OrderTest {
 
     String[] colorArray;
 

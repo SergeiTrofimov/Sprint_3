@@ -1,33 +1,11 @@
 import io.restassured.response.Response;
-import org.example.BodyGenerator.CourierGenerator;
-import org.example.RESTclient.CourierClient;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.IsNot.not;
 
-public class LoginCourierTest {
-    CourierClient courierClient = new CourierClient();
-    CourierGenerator generator = new CourierGenerator();
-    private String[] body;
-
-    @Before
-    public void beforeLogin() {
-        // Создаем курьера для тестов
-        body = generator.bodyGenerator();
-        courierClient.createCourierRequest(body[0], body[1], body[2]);
-    }
-
-    public void afterLogin() {
-        // Убираем за собой
-        courierClient.clearTestData(body[0], body[1]);
-    }
+public class LoginCourierTest extends CourierTests {
 
     /**
      * 1.курьер может авторизоваться;
@@ -91,6 +69,4 @@ public class LoginCourierTest {
         response.then().statusCode(404);
         response.then().assertThat().body("message", equalTo("Учетная запись не найдена"));
     }
-
-
 }

@@ -7,7 +7,7 @@ import org.junit.runners.Parameterized;
 import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(Parameterized.class)
-public class LoginCourierParametrizedTest extends LoginCourierTest {
+public class LoginCourierParametrizedTest extends CourierTests {
     /**
      * если какого-то поля нет, запрос возвращает ошибку
      */
