@@ -23,7 +23,7 @@ public class OrderClient {
     //Получить номер заказа по трек номеру
 
 
-    //Назначить заказ курьеру
+
     public Response getOrderIdByTrackRequest(int trackNumber) {
         Response response = given()
                 .header("Content-type", "application/json")
@@ -33,13 +33,23 @@ public class OrderClient {
         return response;
     }
 
-    // Получить список заказов
-    public Response getOrderRequest(String postfix) {
+    //Назначить заказ курьеру
+    public Response putOrderToCourier(int orderID, String courierID) {
         Response response = given()
                 .header("Content-type", "application/json")
                 .baseUri(setup.getBaseUri())
                 .when()
-                .get(setup.getCreateOrder()+postfix);
+                .put(setup.getPutOrderToCourier()+orderID+"?courierId="+courierID);
+        return response;
+    }
+
+    // Получить список заказов
+    public Response getOrdersRequest(String postfix) {
+        Response response = given()
+                .header("Content-type", "application/json")
+                .baseUri(setup.getBaseUri())
+                .when()
+                .get(setup.getGetOrdersList()+postfix);
         return response;
     }
 }

@@ -8,6 +8,7 @@ public class Setup {
     private final static String CREATE_ORDER = "/api/v1/orders";
     private final static String GET_ORDERS_LIST = "/api/v1/orders?";
     private final static String GET_ORDER_ID_BY_TRACK = "/api/v1/orders/track?t=";
+    private final static String PUT_ORDER_TO_COURIER = "/api/v1/orders/accept/";
 
     //
     public String getBaseUri() {
@@ -31,5 +32,7 @@ public class Setup {
     public String getGetOrderIdByTrack() {
         return GET_ORDER_ID_BY_TRACK;
     }
-
+    public String getPutOrderToCourier() {
+        return PUT_ORDER_TO_COURIER;
+    }
 }
