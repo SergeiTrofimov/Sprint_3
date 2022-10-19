@@ -20,8 +20,18 @@ public class OrderClient {
                 .post(setup.getCreateOrder());
         return response;
     }
-    //Назначить заказ курьеру
+    //Получить номер заказа по трек номеру
 
+
+    //Назначить заказ курьеру
+    public Response getOrderIdByTrackRequest(int trackNumber) {
+        Response response = given()
+                .header("Content-type", "application/json")
+                .baseUri(setup.getBaseUri())
+                .when()
+                .get(setup.getGetOrderIdByTrack()+trackNumber);
+        return response;
+    }
 
     // Получить список заказов
     public Response getOrderRequest(String postfix) {
