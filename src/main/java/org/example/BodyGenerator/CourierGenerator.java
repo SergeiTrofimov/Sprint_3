@@ -2,7 +2,7 @@ package org.example.BodyGenerator;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-public class СourierGenerator {
+public class CourierGenerator {
     //Генерируем случайоного курьера
     public String[] bodyGenerator() {
 

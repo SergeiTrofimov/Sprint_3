@@ -1,7 +1,7 @@
 import com.google.gson.Gson;
 import io.restassured.response.Response;
 import org.example.BodyGenerator.OrderGenerator;
-import org.example.BodyGenerator.СourierGenerator;
+import org.example.BodyGenerator.CourierGenerator;
 import org.example.DBO.CreateOrderResponse;
 import org.example.DBO.GetOrderByTrack;
 import org.example.DBO.GetOrdersResponse;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 public class OrderListTest {
     CourierClient courierClient = new CourierClient();
     OrderClient orderClient = new OrderClient();
-    СourierGenerator сourierGenerator = new СourierGenerator();
+    CourierGenerator courierGenerator = new CourierGenerator();
     OrderGenerator orderGenerator = new OrderGenerator();
     Gson gson = new Gson();
     private String courierId;
@@ -29,7 +29,7 @@ public class OrderListTest {
     @Before
     public void beforeOrder() {
         // Создаем курьера для теста
-        String[] body = сourierGenerator.bodyGenerator();
+        String[] body = courierGenerator.bodyGenerator();
         courierClient.createCourierRequest(body[0], body[1], body[2]);
         //Логинимся созданной парой и получаем id курьера
         Response response = courierClient.loginCourierRequest(body[0], body[1]);

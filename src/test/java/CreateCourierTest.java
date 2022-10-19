@@ -1,5 +1,6 @@
 import io.restassured.response.Response;
-import org.example.BodyGenerator.СourierGenerator;
+import org.example.BodyGenerator.CourierGenerator;
+
 import org.example.RESTclient.CourierClient;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +14,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class CreateCourierTest {
     CourierClient courierClient = new CourierClient();
-    СourierGenerator generator = new СourierGenerator();
+    CourierGenerator generator = new CourierGenerator();
 
     /**
      * 1.курьера можно создать,

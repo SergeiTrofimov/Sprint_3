@@ -1,7 +1,7 @@
 import com.google.gson.Gson;
 import io.restassured.response.Response;
 import org.example.BodyGenerator.OrderGenerator;
-import org.example.BodyGenerator.СourierGenerator;
+import org.example.BodyGenerator.CourierGenerator;
 import org.example.RESTclient.CourierClient;
 import org.example.RESTclient.OrderClient;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class CreateOrderTest {
 
     CourierClient courierClient = new CourierClient();
     OrderClient orderClient = new OrderClient();
-    СourierGenerator сourierGenerator = new СourierGenerator();
+    CourierGenerator courierGenerator = new CourierGenerator();
     OrderGenerator orderGenerator = new OrderGenerator();
     private String id;
 

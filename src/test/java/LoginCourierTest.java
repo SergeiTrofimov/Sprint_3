@@ -1,5 +1,5 @@
 import io.restassured.response.Response;
-import org.example.BodyGenerator.СourierGenerator;
+import org.example.BodyGenerator.CourierGenerator;
 import org.example.RESTclient.CourierClient;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import static org.hamcrest.core.IsNot.not;
 
 public class LoginCourierTest {
     CourierClient courierClient = new CourierClient();
-    СourierGenerator generator = new СourierGenerator();
+    CourierGenerator generator = new CourierGenerator();
     private String[] body;
 
     @Before
