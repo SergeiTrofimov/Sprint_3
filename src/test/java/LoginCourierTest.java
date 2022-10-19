@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.IsNot.not;
@@ -90,16 +92,5 @@ public class LoginCourierTest {
         response.then().assertThat().body("message", equalTo("Учетная запись не найдена"));
     }
 
-    /**
-     * если какого-то поля нет, запрос возвращает ошибку
-     */
-    @ParameterizedTest
-    @CsvSource({"Login1, ",
-            ",svtPassword1"})
 
-    public void checkMandatoryParametersTest(String login, String password) {
-        Response response = courierClient.loginCourierRequest(login, password);
-        response.then().statusCode(400);
-        response.then().assertThat().body("message", equalTo("Недостаточно данных для входа"));
-    }
 }
