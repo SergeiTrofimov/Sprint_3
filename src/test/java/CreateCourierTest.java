@@ -6,9 +6,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.hamcrest.Matchers.equalTo;
 
-;
-
-
 public class CreateCourierTest extends CourierTests {
     /**
      * 1.курьера можно создать,
@@ -18,14 +15,10 @@ public class CreateCourierTest extends CourierTests {
     @Test
     @DisplayName("Проверка создания курьера.Проверка кода и тела")
     public void canCreateCourierTest() {
-
-        // Вызываем создание клиента
         String[] body = generator.bodyGenerator();
         Response response = courierClient.createCourierRequest(body[0], body[1], body[2]);
         response.then().statusCode(201);
         response.then().assertThat().body("ok", equalTo(true));
-        // Убираем за собой
-        courierClient.clearTestData(body[0], body[1]);
     }
 
     /**
@@ -57,8 +50,6 @@ public class CreateCourierTest extends CourierTests {
         }
         response.then().statusCode(409);
         response.then().assertThat().body("message", equalTo("Этот логин уже используется. Попробуйте другой."));
-        // Убираем за собой
-        courierClient.clearTestData(body[0], "password0");
     }
 
     /**

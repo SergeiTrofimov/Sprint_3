@@ -1,5 +1,6 @@
-import org.example.BodyGenerator.CourierGenerator;
-import org.example.RESTclient.CourierClient;
+import io.qameta.allure.Step;
+import org.example.bodygenerator.CourierGenerator;
+import org.example.restclient.CourierClient;
 import org.junit.After;
 import org.junit.Before;
 
@@ -9,15 +10,15 @@ public class CourierTests {
     String[] body;
 
     @Before
+    @Step("Создаем курьера для тестов")
     public void beforeLogin() {
-        // Создаем курьера для тестов
         body = generator.bodyGenerator();
         courierClient.createCourierRequest(body[0], body[1], body[2]);
     }
 
     @After
+    @Step("Убираем за собой")
     public void afterLogin() {
-        // Убираем за собой
         courierClient.clearTestData(body[0], body[1]);
     }
 }

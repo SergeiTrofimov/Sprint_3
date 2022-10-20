@@ -1,4 +1,4 @@
-package org.example.DBO;
+package org.example.dbo;
 
 public class GetOrderByTrack {
     //Переменные

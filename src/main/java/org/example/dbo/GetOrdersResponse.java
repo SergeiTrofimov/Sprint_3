@@ -1,4 +1,4 @@
-package org.example.DBO;
+package org.example.dbo;
 
 import java.util.ArrayList;
 

@@ -18,7 +18,7 @@ public class CreateOrderParametrizedTest extends OrderTest {
     }
 
 
-    @Parameterized.Parameters(name = "Проверка цвета") // добавили аннотацию
+    @Parameterized.Parameters(name = "Проверка цвета. Сейчас цвета - {0},{1}") // добавили аннотацию
     public static String[][][] getSumData() {
         return new String[][][]{
                 {{"Black", "Grey"}},

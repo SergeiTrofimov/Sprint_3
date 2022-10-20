@@ -1,12 +1,13 @@
-package org.example.BodyGenerator;
+package org.example.bodygenerator;
 
+import io.qameta.allure.Step;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.HashMap;
 
 
 public class OrderGenerator {
-    //Генерируем тело для заказа
+    @Step("Генерируем тело для заказа")
     public HashMap<String, Object> bodyGenerator() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("firstName", RandomStringUtils.randomAlphabetic(5));

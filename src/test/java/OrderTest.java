@@ -1,10 +1,11 @@
 import com.google.gson.Gson;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import org.example.BodyGenerator.CourierGenerator;
-import org.example.BodyGenerator.OrderGenerator;
-import org.example.DBO.LoginCourierResponse;
-import org.example.RESTclient.CourierClient;
-import org.example.RESTclient.OrderClient;
+import org.example.bodygenerator.CourierGenerator;
+import org.example.bodygenerator.OrderGenerator;
+import org.example.dbo.LoginCourierResponse;
+import org.example.restclient.CourierClient;
+import org.example.restclient.OrderClient;
 import org.junit.After;
 import org.junit.Before;
 
@@ -17,17 +18,17 @@ public class OrderTest {
     String courierId;
 
     @Before
+    @Step("Создаем курьера для теста.Логинимся созданной парой и получаем id курьера")
     public void beforeOrder() {
-        // Создаем курьера для теста
         String[] body = courierGenerator.bodyGenerator();
         courierClient.createCourierRequest(body[0], body[1], body[2]);
-        //Логинимся созданной парой и получаем id курьера
+
         Response response = courierClient.loginCourierRequest(body[0], body[1]);
         courierId = response.getBody().as(LoginCourierResponse.class).getId();
     }
 
     @After
-    // Убираем за собой
+    @Step("Убираем за собой")
     public void afterOrder() {
         courierClient.deleteCourier(courierId);
     }

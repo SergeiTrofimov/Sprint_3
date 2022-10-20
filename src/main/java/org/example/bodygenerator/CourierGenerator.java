@@ -1,9 +1,10 @@
-package org.example.BodyGenerator;
+package org.example.bodygenerator;
 
+import io.qameta.allure.Step;
 import org.apache.commons.lang3.RandomStringUtils;
 
 public class CourierGenerator {
-    //Генерируем случайоного курьера
+    @Step("Генерируем случайное тело модели курьера")
     public String[] bodyGenerator() {
 
         String[] result = new String[3];

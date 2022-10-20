@@ -1,15 +1,7 @@
-import com.google.gson.Gson;
 import io.restassured.response.Response;
-import org.example.BodyGenerator.OrderGenerator;
-import org.example.BodyGenerator.CourierGenerator;
-import org.example.DBO.CreateOrderResponse;
-import org.example.DBO.GetOrderByTrack;
-import org.example.DBO.GetOrdersResponse;
-import org.example.DBO.LoginCourierResponse;
-import org.example.RESTclient.CourierClient;
-import org.example.RESTclient.OrderClient;
-import org.junit.After;
-import org.junit.Before;
+import org.example.dbo.CreateOrderResponse;
+import org.example.dbo.GetOrderByTrack;
+import org.example.dbo.GetOrdersResponse;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
@@ -18,7 +10,7 @@ import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
-public class OrderListTest extends OrderTest{
+public class OrderListTest extends OrderTest {
     @Test
     @DisplayName("Тело ответа не пустое, если у курьера есть заказы")
     public void orderListIsNotEmptyTest() {
